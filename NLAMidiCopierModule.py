@@ -207,6 +207,7 @@ class NoteActionCopier:
                                     note_action_property.duplicate_object_on_overlap
         self.scale_to_note_length = note_action_property.sync_length_with_notes
         self.scale_factor = note_action_property.scale_factor
+        self.copy_to_note_end = note_action_property.copy_to_note_end
         self.action = note_action_property.action
         self.filter_groups_property = note_action_property.note_filter_groups
         self.add_filters = note_action_property.add_filters
@@ -301,7 +302,9 @@ class NoteActionCopier:
         :param note: Note object
         :return: the first frame for an action syncing up to this note
         """
-        return (note.startTime / 1000) * self.frames_per_second + self.frame_offset
+        # TODO error when copying twice with sync lists and copy to note end
+        return ((note.endTime if self.copy_to_note_end else note.startTime) / 1000) \
+               * self.frames_per_second + self.frame_offset
 
     @staticmethod
     def get_animation_data(animated_object):
