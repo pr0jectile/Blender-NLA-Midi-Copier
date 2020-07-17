@@ -127,9 +127,11 @@ class MidiPanel(bpy.types.Panel):
 
         col = parent_layout.column(align=True)
         col.prop(note_action_property, "sync_length_with_notes")
-        col.prop(note_action_property, "copy_to_note_end")
         if note_action_property.sync_length_with_notes:
             col.prop(note_action_property, "scale_factor")
+
+        col.prop(note_action_property, "copy_to_note_end")
+
         col.prop(note_action_property, "add_filters")
         if note_action_property.add_filters:
             PanelUtils.draw_filter_box(col, note_action_property, not is_main_property, action_index, "midi_data")
